@@ -5,10 +5,14 @@
       <div v-for="shoe in shoes" :key="shoe.id" class="col-md-4 mb-4">
         <div class="card h-100">
           <img :src="shoe.image" class="card-img-top" />
-          <div class="card-body">
-            <h5 class="card-title">{{ shoe.name }}</h5>
-            <p class="card-text">${{ shoe.price }}</p>
-            <button class="btn btn-success" @click="addToCart(shoe)">Add to Cart</button>
+          <div class="card-body d-grid grid-rows-2 gap-2">
+            <div>
+              <h5 class="card-title">{{ shoe.name }}</h5>
+              <p class="card-text">${{ shoe.price }}</p>
+            </div>
+            <div class="align-content-end text-center">
+              <button class="btn btn-success" @click="addToCart(shoe)">Add to Cart</button>
+            </div>
           </div>
         </div>
       </div>

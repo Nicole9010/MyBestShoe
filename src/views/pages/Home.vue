@@ -13,11 +13,14 @@
       <div v-for="shoe in shoes" :key="shoe.id" class="col-md-4 mb-4">
         <div class="card h-100">
           <img :src="shoe.image" class="card-img-top" />
-          <div class="card-body">
-            <h5 class="card-title">{{ shoe.name }}</h5>
-            <p class="card-text">${{ shoe.price }}</p>
-            <!-- <RouterLink to="/shop" class="btn btn-success">Shop NOW</RouterLink> -->
-            <button @click="goToShop" class="btn btn-success">Shop Now</button>
+          <div class="card-body d-grid grid-rows-2 gap-2">
+            <div>
+              <h5 class="card-title">{{ shoe.name }}</h5>
+              <p class="card-text">${{ shoe.price }}</p>
+            </div>
+            <div class="align-content-end text-center">
+              <button @click="goToShop" class="btn btn-success">Shop Now</button>
+            </div>
           </div>
         </div>
       </div>

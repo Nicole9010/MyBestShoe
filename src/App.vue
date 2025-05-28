@@ -13,7 +13,7 @@
         </div>
         <div class="d-flex gap-2">
           <RouterLink v-if="!auth.isLoggedIn" to="/login">Login</RouterLink>
-          <button v-if="auth.isLoggedIn" @click="logout">Logout</button>
+          <button v-if="auth.isLoggedIn" @click="logout" class="btn btn-danger">Logout</button>
         </div>
       </div>
     </template>
@@ -23,9 +23,7 @@
           <RouterLink to="/">Home</RouterLink>
         </div>
         <div class="d-flex gap-2">
-          <RouterLink v-if="route.path !== '/login'" to="/login"
-            >Login</RouterLink
-          >
+          <RouterLink v-if="route.path !== '/login'" to="/login">Login</RouterLink>
           <RouterLink v-if="route.path !== '/signup'" to="/signup">Sign Up</RouterLink>
         </div>
       </div>

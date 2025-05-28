@@ -18,13 +18,17 @@
       <div v-for="p in products" :key="p.id" class="col-md-4 mb-3">
         <div class="card h-100">
           <img :src="p.image" class="card-img-top" />
-          <div class="card-body">
-            <h5 class="card-title">{{ p.name }}</h5>
-            <p>${{ p.price }}</p>
-            <button class="btn btn-danger me-1" @click="deleteProduct(p.id ?? '')">Delete</button>
-            <RouterLink :to="`/admin/edit-product/${p.id}`" class="btn btn-warning">
-              Edit
-            </RouterLink>
+          <div class="card-body d-grid grid-rows-2 gap-2">
+            <div>
+              <h5 class="card-title">{{ p.name }}</h5>
+              <p>${{ p.price }}</p>
+            </div>
+            <div class="align-content-end text-center">
+              <button class="btn btn-danger me-1" @click="deleteProduct(p.id ?? '')">Delete</button>
+              <RouterLink :to="`/admin/edit-product/${p.id}`" class="btn btn-warning">
+                Edit
+              </RouterLink>
+            </div>
           </div>
         </div>
       </div>
