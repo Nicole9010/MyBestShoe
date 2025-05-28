@@ -41,5 +41,9 @@
 <script lang="ts" setup>
 import { useCartStore } from '@/store/cart'
 
+defineOptions({
+  name: 'CartPage',
+})
+
 const cart = useCartStore()
 </script>

@@ -16,7 +16,7 @@
 
     <div class="row">
       <div v-for="p in products" :key="p.id" class="col-md-4 mb-3">
-        <div class="card" style="min-height: 100%">
+        <div class="card h-100">
           <img :src="p.image" class="card-img-top" />
           <div class="card-body">
             <h5 class="card-title">{{ p.name }}</h5>

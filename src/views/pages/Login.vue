@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-5" style="max-width: 400px">
-    <h2>Login</h2>
+  <div class="page-container container mt-5">
+    <h2 class="d-flex justify-content-center">Login</h2>
     <form @submit.prevent="handleLogin">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>

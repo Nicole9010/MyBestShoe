@@ -11,7 +11,7 @@
     <h3>Featured Products</h3>
     <div class="row">
       <div v-for="shoe in shoes" :key="shoe.id" class="col-md-4 mb-4">
-        <div class="card"  style="min-height: 100%">
+        <div class="card h-100">
           <img :src="shoe.image" class="card-img-top" />
           <div class="card-body">
             <h5 class="card-title">{{ shoe.name }}</h5>

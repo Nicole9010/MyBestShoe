@@ -1,6 +1,6 @@
 <template>
-  <div class="container mt-5" style="max-width: 400px;">
-    <h2>Sign Up</h2>
+  <div class="page-container container mt-5">
+    <h2 class="d-flex justify-content-center">Sign Up</h2>
     <form @submit.prevent="handleSignup">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
@@ -9,7 +9,14 @@
 
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input v-model="password" type="password" class="form-control" id="password" required minlength="6" />
+        <input
+          v-model="password"
+          type="password"
+          class="form-control"
+          id="password"
+          required
+          minlength="6"
+        />
       </div>
 
       <button type="submit" class="btn btn-primary w-100" :disabled="loading">
@@ -24,29 +31,37 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
-const email = ref('');
-const password = ref('');
-const error = ref('');
-const loading = ref(false);
+defineOptions({
+  name: 'SignUpPage',
+})
 
-const router = useRouter();
-const auth = getAuth();
+const email = ref('')
+const password = ref('')
+const error = ref('')
+const loading = ref(false)
+
+const router = useRouter()
+const auth = getAuth()
 
 async function handleSignup() {
-  error.value = '';
-  loading.value = true;
+  error.value = ''
+  loading.value = true
 
   try {
-    await createUserWithEmailAndPassword(auth, email.value, password.value);
-    router.push('/'); // redirect to home after signup
-  } catch (e: any) {
-    error.value = e.message || 'Failed to sign up.';
+    await createUserWithEmailAndPassword(auth, email.value, password.value)
+    router.push('/') // redirect to home after signup
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      error.value = e.message
+    } else {
+      error.value = 'Failed to sign up.'
+    }
   } finally {
-    loading.value = false;
+    loading.value = false
   }
 }
 </script>
