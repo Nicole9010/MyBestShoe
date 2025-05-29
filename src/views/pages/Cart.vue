@@ -7,20 +7,28 @@
     <table v-else class="table table-bordered">
       <thead>
         <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Qty</th>
-          <th>Subtotal</th>
+          <th class="fw-bold">Product</th>
+          <th class="fw-bold">Price</th>
+          <th class="fw-bold">Qty</th>
+          <th class="fw-bold">Subtotal</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in cart.items" :key="item.id">
-          <td>{{ item.name }}</td>
-          <td>${{ item.price }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>${{ item.price * item.quantity }}</td>
-          <td>
+          <td class="align-content-center">{{ item.name }}</td>
+          <td class="align-content-center">${{ item.price }}</td>
+          <td class="align-content-center" style="width: 100px">
+            <input
+              type="number"
+              class="form-control"
+              min="1"
+              v-model.number="item.quantity"
+              @change="updateQuantity(item.id, item.quantity)"
+            />
+          </td>
+          <td class="align-content-center">${{ (item.price * item.quantity).toFixed(2) }}</td>
+          <td class="align-content-center text-center">
             <button class="btn btn-danger btn-sm" @click="cart.removeItem(item.id)">Remove</button>
           </td>
         </tr>
@@ -46,4 +54,12 @@ defineOptions({
 })
 
 const cart = useCartStore()
+
+function updateQuantity(productId: string, newQty: number) {
+  if (newQty < 1) {
+    // Reset to 1 if invalid
+    newQty = 1
+  }
+  cart.updateItemQuantity(productId, newQty)
+}
 </script>

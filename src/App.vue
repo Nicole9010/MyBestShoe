@@ -10,6 +10,7 @@
           >
           <RouterLink v-if="auth.isLoggedIn && !auth.isAdmin" to="/cart">My Cart</RouterLink>
           <RouterLink v-if="auth.isAdmin" to="/admin">Admin Dashboard</RouterLink>
+          <RouterLink v-if="auth.isAdmin" to="/admin/orders">Orders</RouterLink>
         </div>
         <div class="d-flex gap-2">
           <RouterLink v-if="!auth.isLoggedIn" to="/login">Login</RouterLink>

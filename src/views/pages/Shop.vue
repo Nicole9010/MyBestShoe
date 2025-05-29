@@ -8,10 +8,28 @@
           <div class="card-body d-grid grid-rows-2 gap-2">
             <div>
               <h5 class="card-title">{{ shoe.name }}</h5>
-              <p class="card-text">${{ shoe.price }}</p>
+              <p class="card-text">${{ shoe.price.toFixed(2) }}</p>
             </div>
+
             <div class="align-content-end text-center">
-              <button class="btn btn-success" @click="addToCart(shoe)">Add to Cart</button>
+              <div class="d-flex justify-content-center align-items-center gap-2">
+                <button
+                  class="btn btn-outline-danger btn-sm"
+                  @click="decreaseQuantity(shoe)"
+                  :disabled="getQuantity(shoe.id) === 0"
+                >
+                  <i class="bi bi-dash"></i>
+                </button>
+
+                <span>{{ getQuantity(shoe.id) }}</span>
+
+                <button class="btn btn-outline-success btn-sm" @click="increaseQuantity(shoe)">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+              <div class="mt-2">
+                <button class="btn btn-success" @click="addToCart(shoe)">Add to Cart</button>
+              </div>
             </div>
           </div>
         </div>
@@ -25,32 +43,23 @@ defineOptions({ name: 'ShopPage' })
 import { ref, onMounted } from 'vue'
 import { db } from '@/firebase'
 import { collection, getDocs } from 'firebase/firestore'
-import { useCartStore } from '../../store/cart' // if you're nested deeper
+import { useCartStore } from '../../store/cart'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '../../store/auth' // if you're nested deeper
-interface Product {
-  id: string
-  name: string
-  price: number
-  image: string
-}
+import { useAuthStore } from '../../store/auth'
+import type { Product } from '@/types/interface'
+
+// export interface Product {
+//   id: string
+//   name: string
+//   price: number
+//   image: string
+//   // Add other fields as needed
+// }
 
 const router = useRouter()
 const auth = useAuthStore()
 const shoes = ref<Product[]>([])
-
 const cart = useCartStore()
-
-function addToCart(shoe: Product) {
-  cart.addItem(shoe)
-  alert('Added to cart!')
-
-  if (auth.isAdmin) {
-    router.push('/admin') // Navigate to cart page after adding
-  } else {
-    router.push('/shop') // Navigate to cart page after adding
-  }
-}
 
 const fetchShoes = async () => {
   const snapshot = await getDocs(collection(db, 'products'))
@@ -64,7 +73,32 @@ onMounted(() => {
   fetchShoes()
 })
 
-// function addToCart(shoe: Product) {
-//   console.log('Add to cart:', shoe); // Cart logic coming next
-// }
+// Quantity logic
+const getQuantity = (productId: string) => {
+  const item = cart.items.find((item) => item.id === productId)
+  return item ? item.quantity : 0
+}
+
+function addToCart(shoe: Product) {
+  if (getQuantity(shoe.id) === 0) {
+    cart.addItem(shoe)
+    alert('Added to cart!')
+    if (auth.isAdmin) {
+      router.push('/admin')
+    } else {
+      router.push('/shop')
+    }
+  } else {
+    alert('This item is already in your cart!')
+  }
+}
+
+const increaseQuantity = (shoe: Product) => {
+  cart.addItem(shoe)
+}
+
+const decreaseQuantity = (shoe: Product) => {
+  cart.removeItem(shoe.id)
+}
+
 </script>

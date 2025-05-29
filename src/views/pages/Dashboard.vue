@@ -41,16 +41,18 @@ defineOptions({ name: 'AdminDashboard' })
 import { ref, onMounted } from 'vue'
 import { db } from '@/firebase'
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import type { Product } from '@/types/interface'
 
-interface Product {
-  id?: string
-  name: string
-  price: number
-  image: string
-}
+// interface Product {
+//   id?: string
+//   name: string
+//   price: number
+//   image: string
+// }
 
 const products = ref<Product[]>([])
 const newProduct = ref<Product>({
+  id: '',
   name: '',
   price: 0,
   image: '',
@@ -68,7 +70,7 @@ const addProduct = async () => {
     price: newProduct.value.price,
     image: newProduct.value.image,
   })
-  newProduct.value = { name: '', price: 0, image: '' }
+  newProduct.value = { id: '', name: '', price: 0, image: '' }
   await fetchProducts()
 }
 

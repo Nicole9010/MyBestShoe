@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', () => {
   const init = () => {
     onAuthStateChanged(auth, (u) => {
       user.value = u
-      isAdmin.value = u?.email === 'admin@mybestshoe.com' // ✅ This is correct
+      isAdmin.value = u?.email === 'admin@mybestshoe.com' // Admin account
       console.log('Auth state changed:', u?.email)
     })
   }

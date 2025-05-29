@@ -18,9 +18,9 @@
               <h5 class="card-title">{{ shoe.name }}</h5>
               <p class="card-text">${{ shoe.price }}</p>
             </div>
-            <div class="align-content-end text-center">
+            <!-- <div class="align-content-end text-center">
               <button @click="goToShop" class="btn btn-success">Shop Now</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -35,13 +35,14 @@ import { db } from '@/firebase'
 import { collection, getDocs } from 'firebase/firestore'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
+import type { Product } from '@/types/interface'
 
-interface Product {
-  id: string
-  name: string
-  price: number
-  image: string
-}
+// interface Product {
+//   id: string
+//   name: string
+//   price: number
+//   image: string
+// }
 
 const shoes = ref<Product[]>([])
 const router = useRouter()

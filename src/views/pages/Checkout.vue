@@ -50,6 +50,7 @@ const submitOrder = async () => {
       total: cart.total,
       address: address.value,
       createdAt: Timestamp.now(),
+      status: 'Pending', // NEW: default status
     }
 
     console.log('Submitting order:', order)
